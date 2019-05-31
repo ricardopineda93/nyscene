@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map } from './Map';
+import { WrappedMap } from './Map';
 import { connect } from 'react-redux';
 import { fetchAllMovies } from '../reducers/allMoviesReducer';
 
@@ -19,8 +19,8 @@ class Root extends Component {
         </header>
         <main>
           <div style={{ width: '100vw', height: '100vh' }}>
-            {/* TODO: Set up env variable to hide API key*/}
-            <Map
+            {/* TODO: Set up env variable to hide API key */}
+            <WrappedMap
               allMovies={allMovies}
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBz2Yp_ZcjaR9U5VNWeUFz0FK0Qu1eNhLw&v=3.exp&libraries=geometry,drawing,places`}
               loadingElement={<div style={{ height: `100%` }} />}

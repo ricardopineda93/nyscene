@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
-  withScriptjs,
-  withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  InfoWindow,
+  withGoogleMap,
+  withScriptjs
 } from 'react-google-maps';
 
-export const Map = withScriptjs(
-  withGoogleMap(props => (
+const Map = props => {
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  return (
     <GoogleMap
       defaultZoom={14}
       defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
     >
       {props.allMovies.map(movie => (
         <Marker
+          onClick={() => setSelectedMovie(movie)}
           filmTitle={movie.film}
           key={movie.id}
           imdbId={movie.imdbId}
@@ -27,43 +31,20 @@ export const Map = withScriptjs(
           }}
         />
       ))}
+      {selectedMovie && (
+        <InfoWindow
+          position={{ lat: +selectedMovie.lat, lng: +selectedMovie.lng }}
+          onCloseClick={() => setSelectedMovie(null)}
+        >
+          <div>
+            <h4>{selectedMovie.film}</h4>
+            <small>{selectedMovie.year}</small>
+            <p>{selectedMovie.neighborhood}</p>
+          </div>
+        </InfoWindow>
+      )}
     </GoogleMap>
-  ))
-);
+  );
+};
 
-export class MapContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {}
-    };
-    this.onMapClicked = this.onMapClicked.bind(this);
-    this.onMarkerClick = this.onMarkerClick.bind(this);
-  }
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-  };
-  onMapClicked = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
-  };
-  render() {
-    return (
-      <Map
-        storeProps={this.props}
-        onMarkerClick={this.onMarkerClick}
-        onMapClicked={this.onMapClicked}
-      />
-    );
-  }
-}
+export const WrappedMap = withScriptjs(withGoogleMap(Map));
