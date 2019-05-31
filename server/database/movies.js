@@ -43,6 +43,11 @@ const Movies = db.define('movies', {
       notEmpty: true
     }
   },
+  locationDetails: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'N/A'
+  },
   boro: {
     type: Sequelize.STRING,
     allowNull: false,
