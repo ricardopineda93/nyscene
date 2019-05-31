@@ -11,17 +11,20 @@ class Root extends Component {
     this.props.fetchAllMovies();
   }
   render() {
+    const allMovies = this.props.allMovies;
     return (
       <div>
         <header>
           <h1>nyscene</h1>
         </header>
         <main>
-          <div>
+          <div style={{ width: '100vw', height: '100vh' }}>
+            {/* TODO: Set up env variable to hide API key*/}
             <Map
-              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz2Yp_ZcjaR9U5VNWeUFz0FK0Qu1eNhLw&v=3.exp&libraries=geometry,drawing,places"
+              allMovies={allMovies}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBz2Yp_ZcjaR9U5VNWeUFz0FK0Qu1eNhLw&v=3.exp&libraries=geometry,drawing,places`}
               loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: `600px` }} />}
+              containerElement={<div style={{ height: `100%` }} />}
               mapElement={<div style={{ height: `100%` }} />}
             />
           </div>
@@ -31,11 +34,15 @@ class Root extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  allMovies: state.allMovies.allMovies
+});
+
 const mapDispatchToProps = dispatch => ({
   fetchAllMovies: () => dispatch(fetchAllMovies())
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Root);
