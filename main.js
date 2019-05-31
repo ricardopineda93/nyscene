@@ -1,10 +1,12 @@
 'use strict';
-
+const { cyan, magenta, bgYellow } = require('chalk');
 const { db } = require('./server/database/index');
 const app = require('./server/index');
-const PORT = 3000;
+const PORT = 8080;
 
 db.sync().then(() => {
-  console.log('db synced!');
-  app.listen(PORT, () => console.log(`Serving up the scenes on port ${PORT}!`));
+  console.log(cyan('db synced!'));
+  app.listen(PORT, () =>
+    console.log(magenta.bgYellow(`Serving up the scenes on port ${PORT}!`))
+  );
 });
