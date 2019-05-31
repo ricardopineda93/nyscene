@@ -1,19 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchAllMovies } from '../reducers/allMoviesReducer';
 
-//TODO: I don't think I'll need these, but just in case...if not needed, delete and npm uninstall.
+//TODO: if not needed, delete and npm uninstall.
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-const Root = () => {
-  return (
-    <div>
-      <header>
-        <h1>nyscene</h1>
-      </header>
-      <main>
-        <div>Map goes here, please!</div>
-      </main>
-    </div>
-  );
-};
+class Root extends Component {
+  componentDidMount() {
+    this.props.fetchAllMovies();
+  }
+  render() {
+    return (
+      <div>
+        <header>
+          <h1>nyscene</h1>
+        </header>
+        <main>
+          <div>Map goes here, please!</div>
+        </main>
+      </div>
+    );
+  }
+}
 
-export default Root;
+const mapDispatchToProps = dispatch => ({
+  fetchAllMovies: () => dispatch(fetchAllMovies())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Root);

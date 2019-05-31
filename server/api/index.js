@@ -2,7 +2,6 @@
 
 const router = require('express').Router();
 
-//TODO: server-side DB routes
 //routes for server db queries:
 router.use('/mydb', require('./mydb'));
 

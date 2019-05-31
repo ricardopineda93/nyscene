@@ -8,7 +8,6 @@ import thunkMiddleware from 'redux-thunk';
 
 const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 25 });
 
-//TODO: Make a root reducer...and reducers in general for that matter
 export default createStore(
   rootReducer,
   //all of our toys, starting with the redux dev tools on the broswer:

@@ -12,15 +12,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//TODO: make public folder files
 //static middleware:
 app.use(express.static(path.join(__dirname, '../public')));
 
-//TODO: make routes for both server db and omdb API
 //backend routes:
 app.use('/api', require('./api'));
 
-//TODO: make public folder files
 //sending index.html to requesting client
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
