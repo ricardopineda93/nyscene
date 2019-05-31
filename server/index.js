@@ -18,8 +18,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 //TODO: make routes for both server db and omdb API
 //backend routes:
-
-// app.use('/api', require('./api'));
+app.use('/api', require('./api'));
 
 //TODO: make public folder files
 //sending index.html to requesting client
