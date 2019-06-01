@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, withProps, withStateHandlers } from 'recompose';
+import { compose, withStateHandlers } from 'recompose';
 import {
   withScriptjs,
   withGoogleMap,
@@ -9,6 +9,8 @@ import {
 } from 'react-google-maps';
 import mapStyles from '../../mapStyle';
 
+//TODO: Integrate geolocation - if user location is available make center of map
+//user coords and drop a pin. Otherwise, default to Madison Sq Park.
 export const Map = compose(
   withStateHandlers(
     () => ({
@@ -53,8 +55,14 @@ export const Map = compose(
           <InfoWindow onCloseClick={() => props.removeSelected}>
             <div>
               <h4>{movie.film}</h4>
-              <small>{movie.year}</small>
-              <p>{movie.neighborhood}</p>
+              <small>
+                <i>({movie.year})</i>
+              </small>
+              <p>{movie.locationDetails}</p>
+              <p>
+                {movie.neighborhood},<br />
+                {movie.boro}
+              </p>
             </div>
           </InfoWindow>
         )}
