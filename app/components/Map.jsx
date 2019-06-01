@@ -1,52 +1,87 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { compose, withStateHandlers } from 'recompose';
 import {
+  withScriptjs,
+  withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow,
-  withGoogleMap,
-  withScriptjs
+  InfoWindow
 } from 'react-google-maps';
 import mapStyles from '../../mapStyle';
+import { fetchMovie } from '../reducers/omdbMovieReducer';
+import { connect } from 'react-redux';
 
-const Map = props => {
-  const [selectedMovie, setSelectedMovie] = useState(null);
+//TODO: Integrate geolocation - if user location is available make center of map
+//user coords and drop a pin. Otherwise, default to Madison Sq Park.
+const Map = compose(
+  withStateHandlers(
+    () => ({
+      currentlySelected: null
+    }),
+    {
+      onMarkerClicked: ({ currentlySelected }) => movieId => ({
+        currentlySelected: movieId
+      })
+    },
+    {
+      removeSelected: ({ currentlySelected }) => () => ({
+        currentlySelected: null
+      })
+    }
+  ),
+  withScriptjs,
+  withGoogleMap
+)(props => (
+  <GoogleMap
+    defaultZoom={14}
+    defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
+    defaultOptions={{ styles: mapStyles }}
+    onClick={() => props.removeSelected}
+  >
+    {props.allMovies.map(movie => (
+      <Marker
+        onClick={() =>
+          props
+            .fetchMovie(movie.imdbId)
+            .then(() => props.onMarkerClicked(movie.id))
+        }
+        filmTitle={movie.film}
+        key={movie.id}
+        imdbId={movie.imdbId}
+        year={movie.year}
+        locationDetails={movie.locationDetails}
+        neighborhood={movie.neighborhood}
+        boro={movie.boro}
+        position={{ lat: +movie.lat, lng: +movie.lng }}
+        icon={{
+          url: 'http://maps.google.com/mapfiles/kml/pal2/icon30.png'
+        }}
+      >
+        {props.currentlySelected === movie.id && (
+          <InfoWindow onCloseClick={() => props.removeSelected}>
+            <div>
+              <h4>{movie.film}</h4>
+              <small>
+                <i>({movie.year})</i>
+              </small>
+              <p>{movie.locationDetails}</p>
+              <p>
+                {movie.neighborhood},<br />
+                {movie.boro}
+              </p>
+            </div>
+          </InfoWindow>
+        )}
+      </Marker>
+    ))}
+  </GoogleMap>
+));
 
-  return (
-    <GoogleMap
-      defaultZoom={14}
-      defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
-      defaultOptions={{ styles: mapStyles }}
-    >
-      {props.allMovies.map(movie => (
-        <Marker
-          onClick={() => setSelectedMovie(movie)}
-          filmTitle={movie.film}
-          key={movie.id}
-          imdbId={movie.imdbId}
-          year={movie.year}
-          locationDetails={movie.locationDetails}
-          neighborhood={movie.neighborhood}
-          boro={movie.boro}
-          position={{ lat: +movie.lat, lng: +movie.lng }}
-          icon={{
-            url: 'http://maps.google.com/mapfiles/kml/pal2/icon30.png'
-          }}
-        />
-      ))}
-      {selectedMovie && (
-        <InfoWindow
-          position={{ lat: +selectedMovie.lat, lng: +selectedMovie.lng }}
-          onCloseClick={() => setSelectedMovie(null)}
-        >
-          <div>
-            <h4>{selectedMovie.film}</h4>
-            <small>{selectedMovie.year}</small>
-            <p>{selectedMovie.neighborhood}</p>
-          </div>
-        </InfoWindow>
-      )}
-    </GoogleMap>
-  );
-};
+const mapDispatchToProps = dispatch => ({
+  fetchMovie: imdbId => dispatch(fetchMovie(imdbId))
+});
 
-export const WrappedMap = withScriptjs(withGoogleMap(Map));
+export default connect(
+  null,
+  mapDispatchToProps
+)(Map);

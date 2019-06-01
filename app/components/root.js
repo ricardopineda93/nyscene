@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { WrappedMap } from './Map';
-import { Map } from './failedMap';
+import  Map from './Map';
 import { connect } from 'react-redux';
 import { fetchAllMovies } from '../reducers/allMoviesReducer';
 
