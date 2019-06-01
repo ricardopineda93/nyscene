@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import  Map from './Map';
+import Map from './Map';
 import { connect } from 'react-redux';
 import { fetchAllMovies } from '../reducers/allMoviesReducer';
 
@@ -35,7 +35,8 @@ class Root extends Component {
 }
 
 const mapStateToProps = state => ({
-  allMovies: state.allMovies.allMovies
+  allMovies: state.allMovies.allMovies,
+  selectedMovie: state.omdbMovie.selectedMovie
 });
 
 const mapDispatchToProps = dispatch => ({

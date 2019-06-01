@@ -60,14 +60,22 @@ const Map = compose(
         {props.currentlySelected === movie.id && (
           <InfoWindow onCloseClick={() => props.removeSelected}>
             <div>
-              <h4>{movie.film}</h4>
-              <small>
-                <i>({movie.year})</i>
-              </small>
+              <h4>
+                {props.selectedMovie.Title}{' '}
+                <small>
+                  <i>({props.selectedMovie.Year})</i>
+                </small>
+              </h4>
+              <img src={props.selectedMovie.Poster} height="250" width="190" />
               <p>{movie.locationDetails}</p>
               <p>
                 {movie.neighborhood},<br />
                 {movie.boro}
+                <br />
+                <a href={movie.imdbLink} target="_blank">
+                  <small>IMDb Link</small>
+                </a>
+                <br />
               </p>
             </div>
           </InfoWindow>
@@ -77,11 +85,14 @@ const Map = compose(
   </GoogleMap>
 ));
 
+const mapStateToProps = state => ({
+  selectedMovie: state.omdbMovie.selectedMovie
+});
 const mapDispatchToProps = dispatch => ({
   fetchMovie: imdbId => dispatch(fetchMovie(imdbId))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Map);
