@@ -6,6 +6,7 @@ import {
   withGoogleMap,
   withScriptjs
 } from 'react-google-maps';
+import mapStyles from '../../mapStyle';
 
 const Map = props => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -14,6 +15,7 @@ const Map = props => {
     <GoogleMap
       defaultZoom={14}
       defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
+      defaultOptions={{ styles: mapStyles }}
     >
       {props.allMovies.map(movie => (
         <Marker

@@ -7,33 +7,21 @@ import {
   Marker,
   InfoWindow
 } from 'react-google-maps';
+import mapStyles from '../../mapStyle';
 
 export const Map = compose(
   withStateHandlers(
     () => ({
-      showingInfoWindow: false,
-      activeMarker: null,
-      selectedPlace: {}
+      currentlySelected: null
     }),
     {
-      onMarkerClicked: ({ selectedPlace, activeMarker }) => (
-        props,
-        marker,
-        e
-      ) => ({
-        selectedPlace: props,
-        activeMarker: marker,
-        showingInfoWindow: true
+      onMarkerClicked: ({ currentlySelected }) => movieId => ({
+        currentlySelected: movieId
       })
     },
     {
-      onMapClicked: ({
-        showingInfoWindow,
-        activeMarker,
-        selectedPlace
-      }) => props => ({
-        showingInfoWindow: false,
-        activeMarker: {}
+      removeSelected: ({ currentlySelected }) => () => ({
+        currentlySelected: null
       })
     }
   ),
@@ -43,11 +31,12 @@ export const Map = compose(
   <GoogleMap
     defaultZoom={14}
     defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
-    onClick={e => props.onMapClicked}
+    defaultOptions={{ styles: mapStyles }}
+    onClick={() => props.removeSelected}
   >
     {props.allMovies.map(movie => (
       <Marker
-        onClick={props.onMarkerClicked(movie.id)}
+        onClick={() => props.onMarkerClicked(movie.id)}
         filmTitle={movie.film}
         key={movie.id}
         imdbId={movie.imdbId}
@@ -60,8 +49,8 @@ export const Map = compose(
           url: 'http://maps.google.com/mapfiles/kml/pal2/icon30.png'
         }}
       >
-        {props.showingInfoWindow && (
-          <InfoWindow onCloseClick={props.onToggleOpen}>
+        {props.currentlySelected === movie.id && (
+          <InfoWindow onCloseClick={() => props.removeSelected}>
             <div>
               <h4>{movie.film}</h4>
               <small>{movie.year}</small>
