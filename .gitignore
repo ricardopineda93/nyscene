@@ -10,3 +10,6 @@ npm-debug.log
 
 # OSX
 .DS_Store
+
+# API Keys and other confidential information 
+secrets.js

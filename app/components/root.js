@@ -6,6 +6,8 @@ import { fetchAllMovies } from '../reducers/allMoviesReducer';
 //TODO: if not needed, delete and npm uninstall.
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
+const { GOOGLE_API_KEY } = require('../../secrets');
+
 class Root extends Component {
   componentDidMount() {
     this.props.fetchAllMovies();
@@ -22,7 +24,7 @@ class Root extends Component {
             {/* TODO: Set up env variable to hide API key */}
             <Map
               allMovies={allMovies}
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyBz2Yp_ZcjaR9U5VNWeUFz0FK0Qu1eNhLw&v=3.exp&libraries=geometry,drawing,places`}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `100%` }} />}
               mapElement={<div style={{ height: `100%` }} />}
