@@ -47,11 +47,6 @@ const Map = compose(
         }
         filmTitle={movie.film}
         key={movie.id}
-        imdbId={movie.imdbId}
-        year={movie.year}
-        locationDetails={movie.locationDetails}
-        neighborhood={movie.neighborhood}
-        boro={movie.boro}
         position={{ lat: +movie.lat, lng: +movie.lng }}
         icon={{
           url: 'http://maps.google.com/mapfiles/kml/pal2/icon30.png'
