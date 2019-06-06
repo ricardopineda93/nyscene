@@ -1,138 +1,63 @@
 export default [
   {
-    elementType: 'geometry',
     stylers: [
       {
-        hue: '#ff4400'
-      },
-      {
-        saturation: -68
-      },
-      {
-        lightness: -4
-      },
-      {
-        gamma: 0.72
-      }
-    ]
-  },
-  {
-    featureType: 'road',
-    elementType: 'labels.icon'
-  },
-  {
-    featureType: 'landscape.man_made',
-    elementType: 'geometry',
-    stylers: [
-      {
-        hue: '#0077ff'
-      },
-      {
-        gamma: 3.1
+        saturation: -100
       }
     ]
   },
   {
     featureType: 'water',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        hue: '#00ccff'
-      },
+        color: '#0099dd'
+      }
+    ]
+  },
+  {
+    elementType: 'labels',
+    stylers: [
       {
-        gamma: 0.44
-      },
-      {
-        saturation: -33
+        visibility: 'on'
       }
     ]
   },
   {
     featureType: 'poi.park',
+    elementType: 'geometry.fill',
     stylers: [
       {
-        hue: '#44ff00'
-      },
-      {
-        saturation: -23
+        color: '#aadd55'
       }
     ]
   },
   {
-    featureType: 'water',
-    elementType: 'labels.text.fill',
+    featureType: 'road.highway',
+    elementType: 'labels',
     stylers: [
       {
-        hue: '#007fff'
-      },
-      {
-        gamma: 0.77
-      },
-      {
-        saturation: 65
-      },
-      {
-        lightness: 99
+        visibility: 'on'
       }
     ]
   },
   {
-    featureType: 'water',
-    elementType: 'labels.text.stroke',
+    featureType: 'road.arterial',
+    elementType: 'labels.text',
     stylers: [
       {
-        gamma: 0.11
-      },
-      {
-        weight: 5.6
-      },
-      {
-        saturation: 99
-      },
-      {
-        hue: '#0091ff'
-      },
-      {
-        lightness: -86
+        visibility: 'on'
       }
     ]
   },
   {
-    featureType: 'transit.line',
-    elementType: 'geometry',
+    featureType: 'road.local',
+    elementType: 'labels.text',
     stylers: [
       {
-        lightness: -48
-      },
-      {
-        hue: '#ff5e00'
-      },
-      {
-        gamma: 1.2
-      },
-      {
-        saturation: -23
+        visibility: 'on'
       }
     ]
   },
-  {
-    featureType: 'transit',
-    elementType: 'labels.text.stroke',
-    stylers: [
-      {
-        saturation: -64
-      },
-      {
-        hue: '#ff9100'
-      },
-      {
-        lightness: 16
-      },
-      {
-        gamma: 0.47
-      },
-      {
-        weight: 2.7
-      }
-    ]
-  }
+  {}
 ];

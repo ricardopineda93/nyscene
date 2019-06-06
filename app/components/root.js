@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Map from './Map';
 import { connect } from 'react-redux';
 import { fetchAllMovies } from '../reducers/allMoviesReducer';
+import './rootStyle.css';
 
 //TODO: if not needed, delete and npm uninstall.
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
@@ -15,12 +16,49 @@ class Root extends Component {
   render() {
     const allMovies = this.props.allMovies;
     return (
-      <div>
+      <div id="container">
         <header>
-          <h1>nyscene</h1>
+          <h1>nyscene.</h1>
         </header>
         <main>
-          <div style={{ width: '100vw', height: '100vh' }}>
+          <aside>
+            <div className="panel" id="options-panel">
+              <div>
+                <h2>Filter</h2>
+                <select id="distance-option">
+                  <option>By Distance</option>
+                </select>
+                <button id="distance-btn" className="options-btn">
+                  +
+                </button>
+              </div>
+              <div>
+                <h2>Filter</h2>
+                <select id="borough-choices">
+                  <option>By Borough</option>
+                </select>
+                <button id="borough-add" className="options-btn">
+                  +
+                </button>
+              </div>
+              <div>
+                <h2>Filter</h2>
+                <select id="neighborhood-choices">
+                  <option>By Neighborhood</option>
+                </select>
+                <button id="neighborhood-add" className="options-btn">
+                  +
+                </button>
+              </div>
+            </div>
+            <div className="panel" id="itinerary">
+              <div>
+                <h2>My Locations</h2>
+                <ul className="list-group" id="selected-locations-list" />
+              </div>
+            </div>
+          </aside>
+          <div id="map-container">
             {/* TODO: Set up env variable to hide API key */}
             <Map
               allMovies={allMovies}
