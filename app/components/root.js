@@ -59,7 +59,6 @@ class Root extends Component {
             </div>
           </aside>
           <div id="map-container">
-            {/* TODO: Set up env variable to hide API key */}
             <Map
               allMovies={allMovies}
               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}

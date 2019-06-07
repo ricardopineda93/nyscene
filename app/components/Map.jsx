@@ -10,9 +10,12 @@ import {
 import mapStyles from '../../mapStyle';
 import { fetchMovie } from '../reducers/omdbMovieReducer';
 import { connect } from 'react-redux';
+import { geolocated } from 'react-geolocated';
 
-//TODO: Integrate geolocation - if user location is available make center of map
-//user coords and drop a pin. Otherwise, default to Madison Sq Park.
+//does the recenter work?
+
+const defaultPosition = { lat: 40.742963, lng: -73.986683 };
+
 const Map = compose(
   withStateHandlers(
     () => ({
@@ -33,11 +36,20 @@ const Map = compose(
   withGoogleMap
 )(props => (
   <GoogleMap
-    defaultZoom={14}
-    defaultCenter={{ lat: 40.742963, lng: -73.986683 }}
+    defaultZoom={15}
+    center={
+      props.coords
+        ? { lat: props.coords.latitude, lng: props.coords.longitude }
+        : defaultPosition
+    }
     defaultOptions={{ styles: mapStyles }}
-    onClick={() => props.removeSelected}
   >
+    {props.coords && (
+      <Marker
+        key="userPosition"
+        position={{ lat: props.coords.latitude, lng: props.coords.longitude }}
+      />
+    )}
     {props.allMovies.map(movie => (
       <Marker
         onClick={() =>
@@ -87,7 +99,14 @@ const mapDispatchToProps = dispatch => ({
   fetchMovie: imdbId => dispatch(fetchMovie(imdbId))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false
+  },
+  userDecisionTimeout: 5000
+})(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Map)
+);
