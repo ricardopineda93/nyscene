@@ -13,3 +13,5 @@ npm-debug.log
 
 # API Keys and other confidential information 
 secrets.js
+# process.env 
+.env

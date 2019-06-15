@@ -7,7 +7,7 @@ router.get('/:imdbId', (req, res, next) => {
     request({
       uri: 'http://www.omdbapi.com/',
       qs: {
-        apikey: OMDB_API_KEY,
+        apikey: process.env.OMDB_API_KEY,
         i: req.params.imdbId
       }
     }).pipe(res);

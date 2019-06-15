@@ -18,7 +18,9 @@ class Root extends Component {
     return (
       <div id="container">
         <header>
-          <h1>nyscene.</h1>
+          <h1 className="first">nyscene.</h1>
+          <h1 className="second">nyscene.</h1>
+          <h1 className="third">nyscene.</h1>
         </header>
         <main>
           <aside>
@@ -61,7 +63,9 @@ class Root extends Component {
           <div id="map-container">
             <Map
               allMovies={allMovies}
-              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+              googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${
+                process.env.GOOGLE_API_KEY
+              }&v=3.exp&libraries=geometry,drawing,places`}
               loadingElement={<div style={{ height: `100%` }} />}
               containerElement={<div style={{ height: `100%` }} />}
               mapElement={<div style={{ height: `100%` }} />}

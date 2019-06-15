@@ -8,13 +8,15 @@
     "start:dev": "npm run build-watch & npm run start-server",
     "start-server": "nodemon --watch server main.js -e html,js,css",
     "seed": "node seed.js",
-    "build-watch": "webpack -w"
+    "build-watch": "webpack -w",
+    "deploy": "script/deploy"
   },
   "author": "Ricardo Pineda",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.0",
     "chalk": "^2.4.2",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
