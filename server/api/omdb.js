@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const request = require('request');
-const { OMDB_API_KEY } = require('../../secrets');
 
 router.get('/:imdbId', (req, res, next) => {
   try {

@@ -7,8 +7,6 @@ import './rootStyle.css';
 //TODO: if not needed, delete and npm uninstall.
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-const { GOOGLE_API_KEY } = require('../../secrets');
-
 class Root extends Component {
   componentDidMount() {
     this.props.fetchAllMovies();
