@@ -1,9 +1,8 @@
 'use strict';
-//  `1  require('dotenv').config();
 const { cyan, magenta, bgYellow } = require('chalk');
 const { db } = require('./server/database/index');
 const app = require('./server/index');
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 db.sync().then(() => {
   console.log(cyan('db synced!'));
