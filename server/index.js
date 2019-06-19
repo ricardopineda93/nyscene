@@ -3,6 +3,13 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const app = express();
+const session = require('express-session');
+const passport = require('passport');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const { db, User } = require('./database/index');
+const sessionStore = new SequelizeStore({ db });
+
+if (process.env.NODE_ENV !== 'production') require('../secrets');
 
 //logging middleware:
 app.use(morgan('dev'));
@@ -11,10 +18,38 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//session middleware:
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || 'The most robust of secrets...',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+// OAUTH Passport middleware
+
+// initialize takes in our req.session so passport can use it
+app.use(passport.initialize());
+
+app.use(passport.session());
+
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
 //static middleware:
 app.use(express.static(path.join(__dirname, '../public')));
 
 //backend routes:
+// app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
 //sending index.html to requesting client

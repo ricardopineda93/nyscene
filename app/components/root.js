@@ -3,6 +3,7 @@ import Map from './Map';
 import { connect } from 'react-redux';
 import { fetchAllMovies } from '../reducers/allMoviesReducer';
 import './rootStyle.css';
+if (process.env.NODE_ENV !== 'production') require('../../secrets');
 
 //TODO: if not needed, delete and npm uninstall.
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
