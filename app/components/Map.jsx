@@ -5,7 +5,8 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
-  InfoWindow
+  InfoWindow,
+  Circle
 } from 'react-google-maps';
 import mapStyles from '../../mapStyle';
 import { fetchMovie } from '../reducers/omdbMovieReducer';
@@ -44,6 +45,14 @@ const Map = compose(
     }
     defaultOptions={{ styles: mapStyles }}
   >
+    <Circle
+      defaultCenter={
+        props.coords
+          ? { lat: props.coords.latitude, lng: props.coords.longitude }
+          : defaultPosition
+      }
+      defaultRadius={1000}
+    />
     {props.coords && (
       <Marker
         key="userPosition"
