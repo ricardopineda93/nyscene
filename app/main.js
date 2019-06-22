@@ -2,15 +2,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
-// import history from './history';
+import { history } from './history';
+import Routes from './routes';
 import store from './store';
-import Root from './components/root';
+import { Navbar } from './components/index';
 
 render(
   <Provider store={store}>
-    {/* <Router history={history}> */}
-    <Root />
-    {/* </Router> */}
+    <Router history={history}>
+      <Navbar />
+      <Routes />
+    </Router>
   </Provider>,
   document.getElementById('main')
 );

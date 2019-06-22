@@ -38,7 +38,7 @@ app.use(passport.session());
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await User.findById(id);
+    const user = await User.findByPk(id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -49,7 +49,7 @@ passport.deserializeUser(async (id, done) => {
 app.use(express.static(path.join(__dirname, '../public')));
 
 //backend routes:
-// app.use('/auth', require('./auth'));
+app.use('/auth', require('./auth'));
 app.use('/api', require('./api'));
 
 //sending index.html to requesting client
