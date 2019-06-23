@@ -61,7 +61,7 @@ class Root extends Component {
     return (
       <div id="container">
         <main>
-          <aside>
+          <aside className="grit">
             <div className="panel" id="options-panel">
               <div>
                 <h2>Radius: {this.state.distanceFilter} mile(s)</h2>
