@@ -19,12 +19,18 @@ li {
   font-size: 13px;
 }
 
+.map {
+  border-radius: 2%;
+}
+
 #map-container {
   flex: 2;
   height: calc(100vh - 0.5rem);
   overflow: hidden;
   padding-top: 3rem;
   overflow: hidden;
+  border-radius: 2%;
+  background-color: #a8d0e6;
 }
 
 aside {
