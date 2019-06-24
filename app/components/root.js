@@ -136,12 +136,13 @@ class Root extends Component {
                       >
                         x
                       </button>
-                      <a
+                      <span
                         id={favorite.movie.id}
                         onClick={() => this.onSelectingFavorite(favorite)}
+                        className="listed-favorite"
                       >
                         "{favorite.movie.film}" / {favorite.movie.neighborhood}
-                      </a>
+                      </span>
                     </li>
                   ))}
                 </ul>

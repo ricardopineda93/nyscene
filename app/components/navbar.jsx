@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { logout, resettingFavorites } from '../reducers/index';
 import './navbarStyle.css';
 
-// const pattern = /.+?(?=abc)/;
-
 const Navbar = ({ email, handleLogOut, isLoggedIn }) => (
   <div id="container">
     <header className="grit">
@@ -23,7 +21,7 @@ const Navbar = ({ email, handleLogOut, isLoggedIn }) => (
         </div>
       ) : (
         <div className="nav">
-          <Link to="login">L O G I N</Link> |{' '}
+          <Link to="login">L O G I N</Link> {'  |  '}
           <Link to="signup">S I G N U P</Link>
         </div>
       )}
