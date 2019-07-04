@@ -1,2 +1,2 @@
 # nyscene
-https://www.nyscene.herokuapp.com
+https://nyscene.herokuapp.com
